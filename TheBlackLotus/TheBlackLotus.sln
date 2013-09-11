@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBlackLotus", "TheBlackLotus\TheBlackLotus.csproj", "{9B52D866-689E-4D7C-9A2E-892DBF7683F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EixoX", "..\..\..\GitHub\csharp-jetfuel\EixoX\EixoX.csproj", "{0A418683-14D0-433F-BA4D-C4919C8069A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackLotus.Cards", "BlackLotus.Cards\BlackLotus.Cards.csproj", "{BBAC20C0-51B6-46CB-BF1C-20E7E8B17B43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B52D866-689E-4D7C-9A2E-892DBF7683F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B52D866-689E-4D7C-9A2E-892DBF7683F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B52D866-689E-4D7C-9A2E-892DBF7683F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B52D866-689E-4D7C-9A2E-892DBF7683F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A418683-14D0-433F-BA4D-C4919C8069A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A418683-14D0-433F-BA4D-C4919C8069A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A418683-14D0-433F-BA4D-C4919C8069A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A418683-14D0-433F-BA4D-C4919C8069A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBAC20C0-51B6-46CB-BF1C-20E7E8B17B43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBAC20C0-51B6-46CB-BF1C-20E7E8B17B43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBAC20C0-51B6-46CB-BF1C-20E7E8B17B43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBAC20C0-51B6-46CB-BF1C-20E7E8B17B43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

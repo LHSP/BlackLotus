@@ -1,0 +1,70 @@
+﻿@using TheBlackLotus
+@model List<Card>
+@{
+    ViewData["Title"] = "Index";
+    ViewData["TopMenu"] = 1;
+}
+
+<div class="container">
+    <h1>Cards</h1>
+    @foreach (Card card in Model)
+    {
+        <div>
+            <div class="well">
+                <div class="cardArt">
+                    <img src="@card.Art" />
+                </div>
+                <table class="table table-condensed cardSpecs">
+                    <tr>
+                        <td nowrap class="attribute">Name</td>
+                        <td class="value">@card.Name</td>
+                    </tr>
+                    <tr>
+                        <td nowrap class="attribute">Mana Cost</td>
+                        <td class="value">@card.ManaCost</td>
+                    </tr>
+                    <tr>
+                        <td nowrap="true" class="attribute">Converted Mana Cost</td>
+                        <td class="value">@card.ConvertedManaCost</td>
+                    </tr>
+                    <tr>
+                        <td nowrap class="attribute">Types</td>
+                        <td class="value">@card.Type.TypeName@(card.SubType != null ? " - " + card.SubType.SubTypeName : "")</td>
+                    </tr>
+                    <tr>
+                        <td nowrap class="attribute">Card Text</td>
+                        <td class="value">@Html.Raw(String.IsNullOrEmpty(card.Abilities.AbilitiesText) ? "" : card.Abilities.AbilitiesText + "<br />")@card.RuleText</td>
+                    </tr>
+                    @if (card.Power != null && card.Toughness != null)
+                    {
+                        <tr>
+                            <td nowrap class="attribute">P/T</td>
+                            <td class="value">@card.Power/@card.Toughness</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td nowrap class="attribute">Collection</td>
+                        <td class="value">
+                            <img class="expansionSymbol" src="@card.Expansion.Symbol" />
+                            @card.Expansion.Name</td>
+                    </tr>
+                    <tr>
+                        <td nowrap class="attribute">Rarity</td>
+                        <td class="value">@card.RarityId</td>
+                    </tr>
+                    @if (card.CollectorsNumber > 0)
+                    {
+                        <tr>
+                            <td nowrap class="attribute">Card Number</td>
+                            <td class="value">@card.CollectorsNumber/@card.Expansion.Size</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td nowrap class="attribute">Artist</td>
+                        <td class="value">@card.Artist.Name</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,59 @@
+﻿.bodyContainer
+{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    min-height: 100%;
+    width: 100%;
+    padding-top: 80px;
+    font-family: "Century Gothic";
+}
+
+.attribute
+{
+    font-weight: bold;
+    text-align: right;
+    vertical-align: top;
+    padding-right: 5px;
+    text-wrap: none;
+}
+
+.value
+{
+    text-align: left;
+}
+
+.cardArt
+{
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 30px 10px 10px;
+}
+
+    .cardArt img
+    {
+        width: 107%;
+        max-width: 107%;
+    }
+
+.cardSpecs
+{
+    display: inline-block;
+    width: 75%;
+    vertical-align: top;
+}
+
+    .cardSpecs table
+    {
+        height: 300px;
+    }
+
+    .cardSpecs .value
+    {
+        width: 100%;
+    }
+
+.expansionSymbol
+{
+    width: 20px;
+}
