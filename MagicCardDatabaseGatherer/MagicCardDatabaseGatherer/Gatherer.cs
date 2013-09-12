@@ -19,22 +19,23 @@ namespace WindowsFormsApplication1
         private delegate void SetProgressDelegate(int value);
         CardGather cardGather;
         List<int> _cardsToGather = new List<int>();
+        ThreadedQueue<int> queue;
 
         public Gatherer()
         {
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 100; i++)
             {
                 _cardsToGather.Add(240034 + i);
             }
             cardGather = new CardGather(this);
             InitializeComponent();
             progressBar.Maximum = _cardsToGather.Count;
+            queue = new ThreadedQueue<int>(this, _cardsToGather);
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
-            ThreadedQueue<int> queue = new ThreadedQueue<int>(this, _cardsToGather);
-            queue.Start(16);
+            queue.Start(1);
         }
 
         private void Log(string value)
@@ -64,7 +65,7 @@ namespace WindowsFormsApplication1
 
         void EixoX.Viewee.OnException(Exception ex)
         {
-            throw new NotImplementedException();
+            InsertLog("Deu merda");
         }
 
         void CardReadViewee.OnCardRead(Card card)
@@ -86,7 +87,9 @@ namespace WindowsFormsApplication1
 
         void ThreadedQueueViewee<int>.OnWorkDone(ThreadedQueue<int> caller, DateTime startTime, DateTime endTime)
         {
-            Log("Finished!");
+            InsertLog("Finished!");
+            SetProgress(0);
+            Application.DoEvents();
         }
     }
 }
