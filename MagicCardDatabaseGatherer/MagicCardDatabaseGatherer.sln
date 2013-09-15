@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicCardDatabaseGatherer", "MagicCardDatabaseGatherer\MagicCardDatabaseGatherer.csproj", "{2847F7A8-6B17-4B6B-9D1E-8ADC44AA4B87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EixoX", "..\..\..\GitHub\csharp-jetfuel\EixoX\EixoX.csproj", "{0A418683-14D0-433F-BA4D-C4919C8069A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EixoX", "..\..\csharp-jetfuel\EixoX\EixoX.csproj", "{0A418683-14D0-433F-BA4D-C4919C8069A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackLotus.Cards", "..\TheBlackLotus\BlackLotus.Cards\BlackLotus.Cards.csproj", "{BBAC20C0-51B6-46CB-BF1C-20E7E8B17B43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "..\Helpers\Helpers.csproj", "{4BB3678D-5975-4117-B6D9-DBC476B115F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "..\..\Helpers\Helpers\Helpers.csproj", "{4BB3678D-5975-4117-B6D9-DBC476B115F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

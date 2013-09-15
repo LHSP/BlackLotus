@@ -86,7 +86,7 @@
       <Project>{0a418683-14d0-433f-ba4d-c4919c8069a7}</Project>
       <Name>EixoX</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Helpers\Helpers.csproj">
+    <ProjectReference Include="..\..\..\Helpers\Helpers\Helpers.csproj">
       <Project>{4bb3678d-5975-4117-b6d9-dbc476b115f2}</Project>
       <Name>Helpers</Name>
     </ProjectReference>

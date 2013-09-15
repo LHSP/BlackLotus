@@ -91,6 +91,45 @@ namespace WindowsFormsApplication1
                         }
                     }
 
+                    //  Gets Card Abilities
+                    if (cardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_textRow"))
+                    {
+                        cardTable = cardTable.Substring(cardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_textRow"));
+                        cardTable = cardTable.Substring(cardTable.RightIndexOf("value\">"));
+
+                        string ruleTexts = cardTable;
+                        if(ruleTexts.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText"))
+                            ruleTexts = ruleTexts.Substring(0, cardTable.IndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText"));
+
+                        int ruleTextCount = ruleTexts.CountOcurrences("cardtextbox");
+
+                        for (int i = 0; i < ruleTextCount; i++)
+                        {
+                            ruleTexts = ruleTexts.Substring(ruleTexts.RightIndexOf("cardtextbox\">"));
+                            string ruleText = ruleTexts.Substring(0, ruleTexts.IndexOf("</div>"));
+
+                            if (IsAbility(ruleText))
+                            {
+                                string[] abilities = ruleText.Split(',');
+                                for (int j = 0; j < abilities.Length; j++)
+                                {
+                                    card.Abilities += abilities[j].Trim() + '|';
+                                }
+                            }
+                            else
+                            {
+                                while (ruleText.CountOcurrences("<img") > 0)
+                                {
+                                    ruleText = ruleText.Substring(ruleText.RightIndexOf("name="));
+                                    card.RuleText += ruleText.Substring(0, ruleText.IndexOf('&'));
+                                    ruleText = ruleText.Substring(ruleText.RightIndexOf(">"));
+                                }
+                                card.RuleText += ruleText;
+                            }
+                            ruleTexts.Substring(ruleTexts.RightIndexOf("</div>"));
+                        }
+                    }
+
                     _viewee.OnCardRead(card);
                 }
                 return true;
@@ -101,6 +140,27 @@ namespace WindowsFormsApplication1
                 _viewee.OnException(ex);
                 return false;
             }
+        }
+
+        public bool IsAbility(string text)
+        {
+            string maybeAbility = text;
+            int commaIndex = maybeAbility.IndexOf(',');
+            int parenthesisIndex = maybeAbility.IndexOf('(');
+            if(commaIndex < 1)
+                commaIndex = Int32.MaxValue;
+            if(parenthesisIndex < 1)
+                parenthesisIndex = Int32.MaxValue;
+
+            if (commaIndex <= maybeAbility.Length || parenthesisIndex <= maybeAbility.Length)
+            {
+                maybeAbility = maybeAbility.Substring(0, Math.Min(commaIndex, parenthesisIndex));
+            }
+
+            if (maybeAbility.CountWords() > 2)
+                return false;
+            else
+                return true;
         }
     }
 }

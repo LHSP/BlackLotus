@@ -41,73 +41,80 @@ namespace BlackLotus.Cards
         [DatabaseColumn]
         public int RarityId { get; set; }
 
-        private Type _type;
-        public Type Type
-        {
-            get
-            {
-                if (_type == null)
-                    _type = Type.WithIdentity(this.TypeId);
-                return _type;
-            }
-        }
+        public string Type { get; set; }
+        public string SubType { get; set; }
+        public string Abilities { get; set; }
+        public string Expansion { get; set; }
+        public string Artist { get; set; }
+        public string Rarity { get; set; }
 
-        private SubType _subType;
-        public SubType SubType
-        {
-            get
-            {
-                if (this.SubTypeId == null)
-                    return null;
-                if(_subType == null)
-                    _subType = SubType.WithIdentity(this.SubTypeId);
-                return _subType;
-            }
-        }
+        //private Type _type;
+        //public Type Type
+        //{
+        //    get
+        //    {
+        //        if (_type == null)
+        //            _type = Type.WithIdentity(this.TypeId);
+        //        return _type;
+        //    }
+        //}
 
-        private CardAbilities _abilities;
-        public CardAbilities Abilities
-        {
-            get
-            {
-                if (_abilities == null)
-                    _abilities = CardAbilities.WithMember("CardId", this.CardId);
-                return _abilities;
-            }
-        }
+        //private SubType _subType;
+        //public SubType SubType
+        //{
+        //    get
+        //    {
+        //        if (this.SubTypeId == null)
+        //            return null;
+        //        if(_subType == null)
+        //            _subType = SubType.WithIdentity(this.SubTypeId);
+        //        return _subType;
+        //    }
+        //}
 
-        private Expansion _expansion;
-        public Expansion Expansion
-        {
-            get
-            {
-                if (_expansion == null)
-                    _expansion = Expansion.WithIdentity(this.ExpansionId);
-                return _expansion;
-            }
-        }
+        //private CardAbilities _abilities;
+        //public CardAbilities Abilities
+        //{
+        //    get
+        //    {
+        //        if (_abilities == null)
+        //            _abilities = CardAbilities.WithMember("CardId", this.CardId);
+        //        return _abilities;
+        //    }
+        //}
 
-        private Artist _artist;
-        public Artist Artist
-        {
-            get
-            {
-                if(_artist == null)
-                    _artist = Artist.WithIdentity(this.ArtistId);
-                return _artist;
-            }
-        }
+        //private Expansion _expansion;
+        //public Expansion Expansion
+        //{
+        //    get
+        //    {
+        //        if (_expansion == null)
+        //            _expansion = Expansion.WithIdentity(this.ExpansionId);
+        //        return _expansion;
+        //    }
+        //}
 
-        private Rarity _rarity;
-        public Rarity Rarity
-        {
-            get
-            {
-                if (_rarity == null)
-                    _rarity = Rarity.WithIdentity(this.RarityId);
-                return _rarity;
-            }
-        }
+        //private Artist _artist;
+        //public Artist Artist
+        //{
+        //    get
+        //    {
+        //        if(_artist == null)
+        //            _artist = Artist.WithIdentity(this.ArtistId);
+        //        return _artist;
+        //    }
+        //}
+
+        //private Rarity _rarity;
+        //public Rarity Rarity
+        //{
+        //    get
+        //    {
+        //        if (_rarity == null)
+        //            _rarity = Rarity.WithIdentity(this.RarityId);
+        //        return _rarity;
+        //    }
+        //}
 
 
         public override string ToString()
@@ -140,6 +147,9 @@ namespace BlackLotus.Cards
                 sb.Append("\r\nToughness: ");
                 sb.Append(this.Toughness);
             }
+
+            sb.Append("\r\nAbilities: ");
+            sb.Append(this.Abilities);
 
             sb.Append("\r\nRulesText: ");
             sb.Append(this.RuleText);
