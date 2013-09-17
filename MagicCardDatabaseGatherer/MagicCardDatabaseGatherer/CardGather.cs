@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BlackLotus.Cards;
 using EixoX;
@@ -107,6 +108,7 @@ namespace WindowsFormsApplication1
                         {
                             ruleTexts = ruleTexts.Substring(ruleTexts.RightIndexOf("cardtextbox\">"));
                             string ruleText = ruleTexts.Substring(0, ruleTexts.IndexOf("</div>"));
+                            ruleText = Regex.Replace(ruleText, @"<img.*name=([^\]]+)&amp;[^>]+>", @"$1");
 
                             if (IsAbility(ruleText))
                             {
@@ -128,6 +130,20 @@ namespace WindowsFormsApplication1
                             }
                             ruleTexts.Substring(ruleTexts.RightIndexOf("</div>"));
                         }
+                    }
+
+                    //  Gets Card falvor text
+                    if (cardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText"))
+                    {
+                        cardTable = cardTable.Substring(cardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText"));
+                        string flavorTexts = cardTable;
+                        string flavorText = "";
+                        while (flavorTexts.CountOcurrences("cardtextbox") > 0)
+                        {
+                            flavorTexts = flavorTexts.Substring(flavorTexts.RightIndexOf("cardtextbox") + 2);
+                            flavorText += flavorTexts.Substring(0, flavorTexts.IndexOf("</div>")) + "\n";
+                        }
+                        card.FlavorText = flavorText;
                     }
 
                     _viewee.OnCardRead(card);
@@ -155,9 +171,10 @@ namespace WindowsFormsApplication1
             if (commaIndex <= maybeAbility.Length || parenthesisIndex <= maybeAbility.Length)
             {
                 maybeAbility = maybeAbility.Substring(0, Math.Min(commaIndex, parenthesisIndex));
+                maybeAbility = Regex.Replace(maybeAbility, "<.*>", "");
             }
 
-            if (maybeAbility.CountWords() > 2)
+            if (maybeAbility.Trim().CountWords() > 2)
                 return false;
             else
                 return true;
