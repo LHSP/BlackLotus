@@ -24,8 +24,8 @@ namespace BlackLotus.Cards
         public int SubTypeId { get; set; }
         [DatabaseColumn]
         public int ExpansionId { get; set; }
-        [DatabaseColumn]
-        public string Art { get; set; }
+        //[DatabaseColumn]
+        //public string Art { get; set; }
         [DatabaseColumn]
         public string FlavorText { get; set; }
         [DatabaseColumn]
@@ -41,10 +41,34 @@ namespace BlackLotus.Cards
         [DatabaseColumn]
         public int RarityId { get; set; }
 
+        private string _art;
+        public string Art
+        {
+            get
+            {
+                return this._art;
+            }
+            set
+            {
+                this._art = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={0}&type=card".Replace("{0}", value);
+            }
+        }
         public string Type { get; set; }
         public string SubType { get; set; }
         public string Abilities { get; set; }
         public string Expansion { get; set; }
+        private string _expansionSymbol;
+        public string ExpansionSymbol
+        {
+            get
+            {
+                return this._expansionSymbol;
+            }
+        }
+        public void SetExpansionSymbol(string set, string rarity)
+        {
+            this._expansionSymbol = "http://gatherer.wizards.com/Handlers/Image.ashx?type=symbol&set={0}&size=large&rarity={1}".Replace("{0}", set).Replace("{1}", rarity.First().ToString());
+        }
         public string Artist { get; set; }
         public string Rarity { get; set; }
 
@@ -122,7 +146,7 @@ namespace BlackLotus.Cards
             StringBuilder sb = new StringBuilder();
 
             sb.Append("Image: ");
-            sb.Append("http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={0}&type=card".Replace("{0}", this.Art));
+            sb.Append(this._art);
 
             sb.Append("\r\nName: ");
             sb.Append(this.Name);
@@ -156,6 +180,9 @@ namespace BlackLotus.Cards
 
             sb.Append("\r\nFlavorText: ");
             sb.Append(this.FlavorText);
+
+            sb.Append("\r\nSymbol: ");
+            sb.Append(this._expansionSymbol);
 
             sb.Append("\r\nSet: ");
             sb.Append(this.Expansion);

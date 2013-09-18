@@ -39,27 +39,27 @@ namespace WindowsFormsApplication1
                 while(page.CountOcurrences(this._startOfCardTable) > 0)
                 {
                     page = page.Substring(page.RightIndexOf(this._startOfCardTable));
-                    string cardTable = page.Substring(0, page.IndexOf("</table>"));
+                    string mainCardTable = page.Substring(0, page.IndexOf("</table>"));
                     
                     //  Gets Card Image
-                    if (cardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_cardImage"))
+                    if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_cardImage"))
                     {
-                        string image = cardTable.Substring(cardTable.RightIndexOf("multiverseid="));
+                        string image = mainCardTable.Substring(mainCardTable.RightIndexOf("multiverseid="));
                         card.Art = image.Substring(0, image.IndexOf("&amp;"));
                     }
 
                     //  Gets Card Name
-                    if (cardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow"))
+                    if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow"))
                     {
-                        cardTable = cardTable.Substring(cardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow"));
+                        string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow"));
                         string name = cardTable.Substring(cardTable.RightIndexOf("value\">"));
                         card.Name = name.Substring(0, name.IndexOf("</div>")).Trim();
                     }
 
                     //  Gets Card Mana Cost
-                    if (cardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_manaRow"))
+                    if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_manaRow"))
                     {
-                        cardTable = cardTable.Substring(cardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_manaRow"));
+                        string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_manaRow"));
                         string manaCost = cardTable.Substring(cardTable.RightIndexOf("value\">"));
                         manaCost = manaCost.Substring(0, manaCost.RightIndexOf("div>"));
                         while (manaCost.CountOcurrences("name=") > 0)
@@ -71,20 +71,20 @@ namespace WindowsFormsApplication1
                     }
 
                     //  Gets Card Converted Mana Cost
-                    if (cardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_cmcRow"))
+                    if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_cmcRow"))
                     {
-                        cardTable = cardTable.Substring(cardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_cmcRow"));
+                        string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_cmcRow"));
                         string cmc = cardTable.Substring(cardTable.RightIndexOf("value\">"));
                         cmc = cmc.Substring(0, cmc.IndexOf("<")).Trim();
                         card.ConvertedManaCost = Int32.Parse(String.IsNullOrEmpty(cmc) ? "0" : cmc);
                     }
 
                     //  Gets Card Types
-                    if (cardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_typeRow"))
+                    if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_typeRow"))
                     {
-                        cardTable = cardTable.Substring(cardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_typeRow"));
+                        string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_typeRow"));
                         cardTable = cardTable.Substring(cardTable.RightIndexOf("value\">"));
-                        string[] types = cardTable.Substring(0, cardTable.IndexOf("<")).Split(new string[]{"â€”"}, StringSplitOptions.RemoveEmptyEntries);
+                        string[] types = cardTable.Substring(0, cardTable.IndexOf("<")).Split(new string[] { "â€”" }, StringSplitOptions.RemoveEmptyEntries);
                         card.Type = types[0].Trim();
                         if (types.Length > 1 && !String.IsNullOrEmpty(types[1].Trim()))
                         {
@@ -93,9 +93,9 @@ namespace WindowsFormsApplication1
                     }
 
                     //  Gets Card Abilities
-                    if (cardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_textRow"))
+                    if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_textRow"))
                     {
-                        cardTable = cardTable.Substring(cardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_textRow"));
+                        string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_textRow"));
                         cardTable = cardTable.Substring(cardTable.RightIndexOf("value\">"));
 
                         string ruleTexts = cardTable;
@@ -132,10 +132,10 @@ namespace WindowsFormsApplication1
                         }
                     }
 
-                    //  Gets Card falvor text
-                    if (cardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText"))
+                    //  Gets Card Flavor Text
+                    if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText"))
                     {
-                        cardTable = cardTable.Substring(cardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText"));
+                        string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText"));
                         string flavorTexts = cardTable;
                         string flavorText = "";
                         while (flavorTexts.CountOcurrences("cardtextbox") > 0)
@@ -144,6 +144,41 @@ namespace WindowsFormsApplication1
                             flavorText += flavorTexts.Substring(0, flavorTexts.IndexOf("</div>")) + "\n";
                         }
                         card.FlavorText = flavorText;
+                    }
+
+                    //  Get Card Power/Toughness
+                    if(mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ptRow"))
+                    {
+                        string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ptRow"));
+                        cardTable = cardTable.Substring(cardTable.RightIndexOf("value\">"));
+
+                        card.Power = cardTable.Substring(0, cardTable.IndexOf('/')).Trim();
+                        string toughness = cardTable.Substring(cardTable.RightIndexOf('/'));
+                        card.Toughness = toughness.Substring(0, toughness.IndexOf("</div")).Trim();
+                    }
+
+                    //  Get Card Set, Rarity and Symbol
+                    if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow"))
+                    {
+                        string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow"));
+                        cardTable = cardTable.Substring(cardTable.RightIndexOf("img title=\""));
+
+                        card.Expansion = cardTable.Substring(0, cardTable.IndexOf('(')).Trim();
+                        cardTable = cardTable.Substring(cardTable.RightIndexOf('('));
+                        card.Rarity = cardTable.Substring(0, cardTable.IndexOf(')')).Trim();
+                        cardTable = cardTable.Substring(cardTable.RightIndexOf("set="));
+                        string exp = cardTable.Substring(0, cardTable.IndexOf("&amp;size"));
+                        cardTable = cardTable.Substring(cardTable.RightIndexOf("rarity="));
+                        string rty = cardTable.Substring(0, cardTable.IndexOf("\" alt"));
+                        card.SetExpansionSymbol(exp, rty);
+                    }
+
+                    //  Get Card number
+                    if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_numberRow"))
+                    {
+                        string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_numberRow"));
+                        cardTable = cardTable.Substring(cardTable.RightIndexOf("value\">"));
+                        card.CollectorsNumber = Int32.Parse(cardTable.Substring(0, cardTable.IndexOf("</div>")).Trim());
                     }
 
                     _viewee.OnCardRead(card);
