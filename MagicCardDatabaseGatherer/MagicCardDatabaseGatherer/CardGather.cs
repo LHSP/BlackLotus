@@ -181,6 +181,14 @@ namespace WindowsFormsApplication1
                         card.CollectorsNumber = Int32.Parse(cardTable.Substring(0, cardTable.IndexOf("</div>")).Trim());
                     }
 
+                    //  Get Card Artist
+                    if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_artistRow"))
+                    {
+                        string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_artistRow"));
+                        cardTable = cardTable.Substring(cardTable.RightIndexOf("artist=[%22"));
+                        card.Artist = cardTable.Substring(0, cardTable.IndexOf("%22]"));
+                    }
+
                     _viewee.OnCardRead(card);
                 }
                 return true;

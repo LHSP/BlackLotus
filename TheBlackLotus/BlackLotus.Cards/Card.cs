@@ -190,6 +190,9 @@ namespace BlackLotus.Cards
             sb.Append("\r\nRarity: ");
             sb.Append(this.Rarity);
 
+            sb.Append("\r\nArtist: ");
+            sb.Append(this.Artist);
+
             return sb.ToString();
         }
     }

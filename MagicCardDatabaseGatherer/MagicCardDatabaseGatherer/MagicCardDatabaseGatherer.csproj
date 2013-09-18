@@ -82,7 +82,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\GitHub\csharp-jetfuel\EixoX\EixoX.csproj">
+    <ProjectReference Include="..\..\..\Jetfuel-CSharp\EixoX\EixoX.csproj">
       <Project>{0a418683-14d0-433f-ba4d-c4919c8069a7}</Project>
       <Name>EixoX</Name>
     </ProjectReference>
@@ -94,6 +94,9 @@
       <Project>{bbac20c0-51b6-46cb-bf1c-20e7e8b17b43}</Project>
       <Name>BlackLotus.Cards</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

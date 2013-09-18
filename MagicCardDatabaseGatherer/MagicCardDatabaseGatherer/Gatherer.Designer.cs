@@ -32,6 +32,7 @@
             this.btnConvert = new System.Windows.Forms.Button();
             this.lblProgress = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblTimer = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // progressBar
@@ -71,11 +72,20 @@
             this.textBox1.Size = new System.Drawing.Size(497, 280);
             this.textBox1.TabIndex = 1;
             // 
+            // lblTimer
+            // 
+            this.lblTimer.AutoSize = true;
+            this.lblTimer.Location = new System.Drawing.Point(13, 42);
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(0, 13);
+            this.lblTimer.TabIndex = 4;
+            // 
             // Gatherer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(522, 392);
+            this.Controls.Add(this.lblTimer);
             this.Controls.Add(this.lblProgress);
             this.Controls.Add(this.btnConvert);
             this.Controls.Add(this.textBox1);
@@ -93,6 +103,7 @@
         private System.Windows.Forms.Button btnConvert;
         private System.Windows.Forms.Label lblProgress;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lblTimer;
     }
 }
 
