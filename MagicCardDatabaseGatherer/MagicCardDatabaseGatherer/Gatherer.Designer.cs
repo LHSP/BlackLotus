@@ -62,7 +62,7 @@
             // 
             this.lblProgress.AutoSize = true;
             this.lblProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProgress.Location = new System.Drawing.Point(136, 0);
+            this.lblProgress.Location = new System.Drawing.Point(191, 0);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblProgress.Size = new System.Drawing.Size(73, 44);
@@ -117,12 +117,12 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.lblProgress, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(126, 28);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(71, 28);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(212, 44);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(267, 44);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // Gatherer

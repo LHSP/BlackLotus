@@ -10,6 +10,6 @@ namespace WindowsFormsApplication1
 {
     public interface CardReadViewee : Viewee
     {
-        void OnCardRead(Card card);
+        void OnCardInformationRead(CardInformation card);
     }
 }

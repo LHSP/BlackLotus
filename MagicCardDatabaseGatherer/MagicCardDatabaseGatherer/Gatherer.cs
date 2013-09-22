@@ -37,8 +37,16 @@ namespace WindowsFormsApplication1
             _stopwatch = new Stopwatch();
         }
 
+        private void ResetUI()
+        {
+            this.progressBar.Value = 0;
+            this.progressBar.Maximum = 0;
+            this.textBox1.Text = "";
+        }
+
         private void btnConvert_Click(object sender, EventArgs e)
         {
+            ResetUI();
             StreamReader reader;
             //  Check if the cardIds text we need exists
             if (!File.Exists("OrderedCardIds.txt"))
@@ -47,12 +55,15 @@ namespace WindowsFormsApplication1
             }
             else
             {
+                string fileContent;
                 //  Reads the ids we want to get from the Magic Gatherer
-                reader = new StreamReader(File.OpenRead("OrderedCardIds.txt"));
-                string fileContent = reader.ReadToEnd();
+                using (reader = new StreamReader(File.OpenRead("OrderedCardIds.txt")))
+                {
+                    fileContent = reader.ReadToEnd();
+                }
                 List<string> cardIds = fileContent.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                _cardsToGather = cardIds.Select(GetNullableInt).ToList();
+                _cardsToGather = cardIds.Select(GetNullableInt).Take(20).ToList();
                 progressBar.Maximum = _cardsToGather.Count;
                 queue = new ThreadedQueue<int?>(this, _cardsToGather);
 
@@ -132,15 +143,16 @@ namespace WindowsFormsApplication1
 
         void EixoX.Viewee.OnException(Exception ex)
         {
-            InsertLog("Deu merda");
+            InsertLog("Deu merda" + ex.Source);
         }
 
-        void CardReadViewee.OnCardRead(Card card)
+        void CardReadViewee.OnCardInformationRead(CardInformation card)
         {
             AddProgress(1);
             InsertLog(card.ToString());
             ShowElapsedTime();
             UpdateCardCounter();
+            BlackLotusDb<CardInformation>.Instance.Insert(card);
             Application.DoEvents();
         }
 

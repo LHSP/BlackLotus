@@ -46,6 +46,7 @@
     <Compile Include="BlackLotusDbModel.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="CardAbilities.cs" />
+    <Compile Include="CardInformation.cs" />
     <Compile Include="CardRead.cs" />
     <Compile Include="Expansion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

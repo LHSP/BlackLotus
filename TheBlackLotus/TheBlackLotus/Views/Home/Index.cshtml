@@ -1,5 +1,7 @@
-﻿@{
+﻿@using BlackLotus.Cards
+@{
     ViewBag.Title = "Index";
+    List<Card> wtvs = Card.Select().ToList();
 }
 
 <div class="container">

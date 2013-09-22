@@ -26,7 +26,7 @@ namespace WindowsFormsApplication1
         {
             try
             {
-                Card card = new Card();
+                CardInformation card = new CardInformation();
                 string page = "";
                 using (WebClient client = new WebClient())
                 {
@@ -189,7 +189,7 @@ namespace WindowsFormsApplication1
                         card.Artist = cardTable.Substring(0, cardTable.IndexOf("%22]"));
                     }
 
-                    _viewee.OnCardRead(card);
+                    _viewee.OnCardInformationRead(card);
                 }
                 return true;
 

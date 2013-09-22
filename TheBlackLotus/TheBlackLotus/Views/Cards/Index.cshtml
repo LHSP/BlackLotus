@@ -1,4 +1,4 @@
-﻿@using TheBlackLotus
+﻿@using BlackLotus.Cards
 @model List<Card>
 @{
     ViewData["Title"] = "Index";
@@ -29,7 +29,7 @@
                     </tr>
                     <tr>
                         <td nowrap class="attribute">Types</td>
-                        <td class="value">@card.Type.TypeName@(card.SubType != null ? " - " + card.SubType.SubTypeName : "")</td>
+                        @*<td class="value">@card.Type.TypeName@(card.SubType != null ? " - " + card.SubType.SubTypeName : "")</td>*@
                     </tr>
                     <tr>
                         <td nowrap class="attribute">Card Text</td>
@@ -45,8 +45,8 @@
                     <tr>
                         <td nowrap class="attribute">Collection</td>
                         <td class="value">
-                            <img class="expansionSymbol" src="@card.Expansion.Symbol" />
-                            @card.Expansion.Name</td>
+                            @*<img class="expansionSymbol" src="@card.Expansion.Symbol" />
+                            @card.Expansion.Name</td>*@
                     </tr>
                     <tr>
                         <td nowrap class="attribute">Rarity</td>
@@ -56,12 +56,12 @@
                     {
                         <tr>
                             <td nowrap class="attribute">Card Number</td>
-                            <td class="value">@card.CollectorsNumber/@card.Expansion.Size</td>
+                            @*<td class="value">@card.CollectorsNumber/@card.Expansion.Size</td>*@
                         </tr>
                     }
                     <tr>
                         <td nowrap class="attribute">Artist</td>
-                        <td class="value">@card.Artist.Name</td>
+                        @*<td class="value">@card.Artist.Name</td>*@
                     </tr>
                 </table>
             </div>
