@@ -52,6 +52,7 @@
     <Compile Include="Gatherer.Designer.cs">
       <DependentUpon>Gatherer.cs</DependentUpon>
     </Compile>
+    <Compile Include="HttpDownloader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThreadedQueue.cs" />

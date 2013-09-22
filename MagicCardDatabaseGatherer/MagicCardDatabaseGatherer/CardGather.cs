@@ -28,10 +28,12 @@ namespace WindowsFormsApplication1
             {
                 CardInformation card = new CardInformation();
                 string page = "";
-                using (WebClient client = new WebClient())
-                {
-                    page = client.DownloadString("http://gatherer.wizards.com/pages/Card/Details.aspx?multiverseid=" + cardNumber);
-                }
+                //using (WebClient client = new WebClient())
+                //{
+                //    page = client.DownloadString("http://gatherer.wizards.com/pages/Card/Details.aspx?multiverseid=" + cardNumber);
+                //}
+
+                page = new HttpDownloader("http://gatherer.wizards.com/pages/Card/Details.aspx?multiverseid=" + cardNumber, "", "").GetPage();
 
                 if (!page.Contains(this._startOfCardTable))
                     return false;
