@@ -68,7 +68,7 @@ namespace WindowsFormsApplication1
                 queue = new ThreadedQueue<int?>(this, _cardsToGather);
 
                 _stopwatch.Start();
-                queue.Start(16);
+                queue.Start(1);
             }
         }
 
@@ -152,7 +152,8 @@ namespace WindowsFormsApplication1
             InsertLog(card.ToString());
             ShowElapsedTime();
             UpdateCardCounter();
-            BlackLotusDb<CardInformation>.Instance.Insert(card);
+            card.Save();
+            //BlackLotusDb<CardInformation>.Instance.Insert(card);
             Application.DoEvents();
         }
 

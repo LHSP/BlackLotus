@@ -29,7 +29,7 @@ namespace BlackLotus.Cards
         [DatabaseColumn]
         public string FlavorText { get; set; }
         [DatabaseColumn]
-        public string ArtistId { get; set; }
+        public int ArtistId { get; set; }
         [DatabaseColumn]
         public int CollectorsNumber { get; set; }
         [DatabaseColumn]
@@ -140,6 +140,91 @@ namespace BlackLotus.Cards
         //        return _rarity;
         //    }
         //}
+
+
+        public void Save()
+        {
+            // Saves the artist
+            if (!String.IsNullOrEmpty(this.Artist))
+            {
+                Artist artist = new Artist()
+                {
+                    Name = this.Artist
+                };
+                BlackLotusDb<Artist>.Instance.Save(artist);
+                this.ArtistId = artist.ArtistId;
+            }
+
+            if (!String.IsNullOrEmpty(this.Type))
+            {
+                //Saves the Type
+                Type type = new Type()
+                {
+                    TypeName = this.Type
+                };
+                BlackLotusDb<Type>.Instance.Save(type);
+                this.TypeId = type.TypeId;
+            }
+
+            //Saves the subtype
+            if (!String.IsNullOrEmpty(this.SubType))
+            {
+                SubType subType = new SubType()
+                {
+                    SubTypeName = this.SubType
+                };
+                BlackLotusDb<SubType>.Instance.Save(subType);
+                this.SubTypeId = subType.SubTypeId;
+            }
+
+            //Saves the expansion
+            if (!String.IsNullOrEmpty(this.Expansion) && !String.IsNullOrEmpty(this.ExpansionSymbol))
+            {
+                Expansion expansion = BlackLotusDb<Expansion>.Instance.WithMember("Name", this.Expansion);
+
+                int expansionSize = expansion == null || this.CollectorsNumber > expansion.Size ? this.CollectorsNumber : expansion.Size;
+
+                expansion = new Expansion()
+                {
+                    Name = this.Expansion,
+                    Symbol = this.ExpansionSymbol,
+                    Size = expansionSize
+                };
+                BlackLotusDb<Expansion>.Instance.Save(expansion);
+                this.ExpansionId = expansion.ExpansionId;
+            }
+
+            //Saves the Rarity
+            if (!String.IsNullOrEmpty(this.Rarity))
+            {
+                Rarity rarity = new Rarity() {
+                    RarityName = this.Rarity
+                };
+                BlackLotusDb<Rarity>.Instance.Save(rarity);
+                this.RarityId = rarity.RarityId;
+            }
+
+            //Saves the card
+            BlackLotusDb<CardInformation>.Instance.Save(this);
+
+            //In the end
+            //Saves the Ability
+            if (!String.IsNullOrEmpty(this.Abilities))
+            {
+                string[] abilities = this.Abilities.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string ab in abilities)
+                {
+                    Ability ability = new Ability()
+                    {
+                        RuleText = ab
+                    };
+                    BlackLotusDb<Ability>.Instance.Save(ability);
+                    CardAbilities cardAbilities = new CardAbilities() { AbilitiesText = ab, CardId = this.CardId };
+                    BlackLotusDb<CardAbilities>.Instance.Save(cardAbilities);
+                }
+            }
+
+        }
 
 
         public override string ToString()

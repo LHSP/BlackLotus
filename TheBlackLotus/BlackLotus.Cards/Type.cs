@@ -12,7 +12,7 @@ namespace BlackLotus.Cards
         [DatabaseColumn(DatabaseColumnKind.Identity)]
         public int TypeId { get; set; }
 
-        [DatabaseColumn]
+        [DatabaseColumn(DatabaseColumnKind.Unique)]
         public string TypeName { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace BlackLotus.Cards
         [DatabaseColumn(DatabaseColumnKind.Identity)]
         public int ArtistId { get; set; }
 
-        [DatabaseColumn]
+        [DatabaseColumn(DatabaseColumnKind.Unique)]
         public string Name { get; set; }
     }
 }
