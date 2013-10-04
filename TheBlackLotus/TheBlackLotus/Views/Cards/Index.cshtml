@@ -31,9 +31,16 @@
                         <td nowrap class="attribute">Types</td>
                         <td class="value">@card.Type.TypeName@(card.SubType != null ? " - " + card.SubType.SubTypeName : "")</td>
                     </tr>
+                    @if(!String.IsNullOrEmpty(card.Abilities.AbilitiesText))
+                    {
+                    <tr>
+                        <td nowrap class="attribute">Abilities</td>
+                        <td class="value"> @Html.Raw(card.Abilities.AbilitiesText)</td>
+                    </tr>
+                    }
                     <tr>
                         <td nowrap class="attribute">Card Text</td>
-                        <td class="value">@Html.Raw(String.IsNullOrEmpty(card.Abilities.AbilitiesText) ? "" : card.Abilities.AbilitiesText + "<br />")@card.RuleText</td>
+                        <td class="value">@card.RuleText</td>
                     </tr>
                     @if (card.Power != null && card.Toughness != null)
                     {

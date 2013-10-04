@@ -68,79 +68,11 @@ namespace BlackLotus.Cards
         }
         public void SetExpansionSymbol(string set, string rarity)
         {
-            this._expansionSymbol = "http://gatherer.wizards.com/Handlers/Image.ashx?type=symbol&set={0}&size=large&rarity={1}".Replace("{0}", set).Replace("{1}", rarity.First().ToString());
+            this._expansionSymbol = "http://gatherer.wizards.com/Handlers/Image.ashx?type=symbol&set={0}&size=large&rarity=C".Replace("{0}", set);
         }
         public string Artist { get; set; }
         public string Rarity { get; set; }
-
-        //private Type _type;
-        //public Type Type
-        //{
-        //    get
-        //    {
-        //        if (_type == null)
-        //            _type = Type.WithIdentity(this.TypeId);
-        //        return _type;
-        //    }
-        //}
-
-        //private SubType _subType;
-        //public SubType SubType
-        //{
-        //    get
-        //    {
-        //        if (this.SubTypeId == null)
-        //            return null;
-        //        if(_subType == null)
-        //            _subType = SubType.WithIdentity(this.SubTypeId);
-        //        return _subType;
-        //    }
-        //}
-
-        //private CardAbilities _abilities;
-        //public CardAbilities Abilities
-        //{
-        //    get
-        //    {
-        //        if (_abilities == null)
-        //            _abilities = CardAbilities.WithMember("CardId", this.CardId);
-        //        return _abilities;
-        //    }
-        //}
-
-        //private Expansion _expansion;
-        //public Expansion Expansion
-        //{
-        //    get
-        //    {
-        //        if (_expansion == null)
-        //            _expansion = Expansion.WithIdentity(this.ExpansionId);
-        //        return _expansion;
-        //    }
-        //}
-
-        //private Artist _artist;
-        //public Artist Artist
-        //{
-        //    get
-        //    {
-        //        if(_artist == null)
-        //            _artist = Artist.WithIdentity(this.ArtistId);
-        //        return _artist;
-        //    }
-        //}
-
-        //private Rarity _rarity;
-        //public Rarity Rarity
-        //{
-        //    get
-        //    {
-        //        if (_rarity == null)
-        //            _rarity = Rarity.WithIdentity(this.RarityId);
-        //        return _rarity;
-        //    }
-        //}
-
+        
 
         public void Save()
         {
@@ -216,11 +148,11 @@ namespace BlackLotus.Cards
                 {
                     Ability ability = new Ability()
                     {
-                        RuleText = ab
+                        AbilityText = ab
                     };
                     BlackLotusDb<Ability>.Instance.Save(ability);
-                    CardAbilities cardAbilities = new CardAbilities() { AbilitiesText = ab, CardId = this.CardId };
-                    BlackLotusDb<CardAbilities>.Instance.Save(cardAbilities);
+                    CardAbility cardAbilities = new CardAbility() { AbilityId = ability.AbilityId, CardId = this.CardId };
+                    BlackLotusDb<CardAbility>.Instance.Save(cardAbilities);
                 }
             }
 

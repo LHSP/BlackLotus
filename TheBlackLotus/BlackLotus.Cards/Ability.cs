@@ -13,6 +13,6 @@ namespace BlackLotus.Cards
         public int AbilityId { get; set; }
 
         [DatabaseColumn]
-        public string RuleText { get; set; }
+        public string AbilityText { get; set; }
     }
 }
