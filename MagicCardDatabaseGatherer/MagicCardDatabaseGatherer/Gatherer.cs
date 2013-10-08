@@ -63,7 +63,7 @@ namespace WindowsFormsApplication1
                 }
                 List<string> cardIds = fileContent.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                _cardsToGather = cardIds.Select(GetNullableInt).Take(20).ToList();
+                _cardsToGather = cardIds.Select(GetNullableInt).Take(100).ToList();
                 progressBar.Maximum = _cardsToGather.Count;
                 queue = new ThreadedQueue<int?>(this, _cardsToGather);
 

@@ -38,11 +38,11 @@ namespace WindowsFormsApplication1
                 if (!page.Contains(this._startOfCardTable))
                     return false;
 
-                while(page.CountOcurrences(this._startOfCardTable) > 0)
+                while (page.CountOcurrences(this._startOfCardTable) > 0)
                 {
                     page = page.Substring(page.RightIndexOf(this._startOfCardTable));
                     string mainCardTable = page.Substring(0, page.IndexOf("</table>"));
-                    
+
                     //  Gets Card Image
                     if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_cardImage"))
                     {
@@ -101,7 +101,7 @@ namespace WindowsFormsApplication1
                         cardTable = cardTable.Substring(cardTable.RightIndexOf("value\">"));
 
                         string ruleTexts = cardTable;
-                        if(ruleTexts.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText"))
+                        if (ruleTexts.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText"))
                             ruleTexts = ruleTexts.Substring(0, cardTable.IndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_FlavorText"));
 
                         int ruleTextCount = ruleTexts.CountOcurrences("cardtextbox");
@@ -110,7 +110,7 @@ namespace WindowsFormsApplication1
                         {
                             ruleTexts = ruleTexts.Substring(ruleTexts.RightIndexOf("cardtextbox\">"));
                             string ruleText = ruleTexts.Substring(0, ruleTexts.IndexOf("</div>"));
-                            ruleText = Regex.Replace(ruleText, @"<img.*name=([^\]]+)&amp;[^>]+>", @"$1");
+                            ruleText = Regex.Replace(ruleText, @"<img([^\]]+?)name=([^\]]+?)&amp;.*?>", @"$2");
 
                             if (IsAbility(ruleText))
                             {
@@ -149,7 +149,7 @@ namespace WindowsFormsApplication1
                     }
 
                     //  Get Card Power/Toughness
-                    if(mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ptRow"))
+                    if (mainCardTable.Contains("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ptRow"))
                     {
                         string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ptRow"));
                         cardTable = cardTable.Substring(cardTable.RightIndexOf("value\">"));
@@ -208,9 +208,9 @@ namespace WindowsFormsApplication1
             string maybeAbility = text;
             int commaIndex = maybeAbility.IndexOf(',');
             int parenthesisIndex = maybeAbility.IndexOf('(');
-            if(commaIndex < 1)
+            if (commaIndex < 1)
                 commaIndex = Int32.MaxValue;
-            if(parenthesisIndex < 1)
+            if (parenthesisIndex < 1)
                 parenthesisIndex = Int32.MaxValue;
 
             if (commaIndex <= maybeAbility.Length || parenthesisIndex <= maybeAbility.Length)
@@ -219,10 +219,146 @@ namespace WindowsFormsApplication1
                 maybeAbility = Regex.Replace(maybeAbility, "<.*>", "");
             }
 
-            if (maybeAbility.Trim().CountWords() > 2)
-                return false;
-            else
-                return true;
+            return keywords.Contains(maybeAbility.Trim());
         }
+
+        private string[] keywords = new string[] {
+            "Absorb",
+            "Affinity",
+            "Amplify",
+            "Annihilator",
+            "Attach",
+            "Aura swap",
+            "Banding",
+            "Bands with other",
+            "Battalion",
+            "Battle cry",
+            "Bloodrush",
+            "Bloodthirst",
+            "Bury",
+            "Bushido",
+            "Buyback",
+            "Cascade",
+            "Champion",
+            "Changeling",
+            "Channel",
+            "Chroma",
+            "Cipher",
+            "Clash",
+            "Conspire",
+            "Convoke",
+            "Counter",
+            "Cumulative upkeep",
+            "Cycling",
+            "Deathtouch",
+            "Defender",
+            "Delve",
+            "Detain",
+            "Devour",
+            "Domain",
+            "Double strike",
+            "Dredge",
+            "Echo",
+            "Enchant",
+            "Entwine",
+            "Epic",
+            "Equip",
+            "Evoke",
+            "Evolve",
+            "Exalted",
+            "Exile",
+            "Extort",
+            "Fading",
+            "Fateful hour",
+            "Fateseal",
+            "Fear",
+            "Fight",
+            "First strike",
+            "Flanking",
+            "Flash",
+            "Flashback",
+            "Flip",
+            "Flying",
+            "Forecast",
+            "Fortify",
+            "Frenzy",
+            "Graft",
+            "Grandeur",
+            "Gravestorm",
+            "Haste",
+            "Haunt",
+            "Hellbent",
+            "Hexproof",
+            "Hideaway",
+            "Horsemanship",
+            "Imprint",
+            "Indestructible",
+            "Infect",
+            "Intimidate",
+            "Join forces",
+            "Kicker",
+            "Kinship",
+            "Landfall",
+            "Landhome",
+            "Landwalk",
+            "Level up",
+            "Lifelink",
+            "Living weapon",
+            "Madness",
+            "Metalcraft",
+            "Miracle",
+            "Modular",
+            "Morbid",
+            "Morph",
+            "Multikicker",
+            "Ninjutsu",
+            "Offering",
+            "Persist",
+            "Phasing",
+            "Poisonous",
+            "Populate",
+            "Proliferate",
+            "Protection",
+            "Provoke",
+            "Prowl",
+            "Radiance",
+            "Rampage",
+            "Reach",
+            "Rebound",
+            "Recover",
+            "Regenerate",
+            "Reinforce",
+            "Replicate",
+            "Retrace",
+            "Ripple",
+            "Sacrifice",
+            "Scavenge",
+            "Scry",
+            "Shadow",
+            "Shroud",
+            "Soulbond",
+            "Soulshift",
+            "Splice",
+            "Split second",
+            "Storm",
+            "Substance",
+            "Sunburst",
+            "Suspend",
+            "Sweep",
+            "Tap/Untap",
+            "Threshold",
+            "Totem armor",
+            "Trample",
+            "Transfigure",
+            "Transform",
+            "Transmute",
+            "Typecycling",
+            "Undying",
+            "Unearth",
+            "Unleash",
+            "Vanishing",
+            "Vigilance",
+            "Wither"
+        };
     }
 }
