@@ -8,7 +8,7 @@ using EixoX.Data;
 namespace BlackLotus.Cards
 {
     [DatabaseTable]
-    public class CardAbility
+    public class CardAbility : BlackLotusDbModel<CardAbility>
     {
         [DatabaseColumn(DatabaseColumnKind.PrimaryKey)]
         public int CardId { get; set; }

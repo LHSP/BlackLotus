@@ -63,12 +63,12 @@ namespace WindowsFormsApplication1
                 }
                 List<string> cardIds = fileContent.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                _cardsToGather = cardIds.Select(GetNullableInt).Take(100).ToList();
+                _cardsToGather = /*new List<int?> { 193591 }; */cardIds.Select(GetNullableInt).ToList();
                 progressBar.Maximum = _cardsToGather.Count;
                 queue = new ThreadedQueue<int?>(this, _cardsToGather);
 
                 _stopwatch.Start();
-                queue.Start(1);
+                queue.Start(16);
             }
         }
 
@@ -143,18 +143,24 @@ namespace WindowsFormsApplication1
 
         void EixoX.Viewee.OnException(Exception ex)
         {
-            InsertLog("Deu merda" + ex.Source);
+            InsertLog("Deu merda" + ex.Source + " : " + ex.Message);
         }
 
         void CardReadViewee.OnCardInformationRead(CardInformation card)
         {
             AddProgress(1);
-            InsertLog(card.ToString());
+            //InsertLog(card.ToString());
             ShowElapsedTime();
             UpdateCardCounter();
             card.Save();
             //BlackLotusDb<CardInformation>.Instance.Insert(card);
             Application.DoEvents();
+        }
+
+        void CardReadViewee.OnCardnotRead(CardInformation card)
+        {
+            InsertLog("Não foi possível ler o card de id " + card.CardId);
+            InsertLog("O que foi possível ler dele:\n" + card.ToString());
         }
 
         void ThreadedQueueViewee<int?>.OnWork(ThreadedQueue<int?> caller, int? item)

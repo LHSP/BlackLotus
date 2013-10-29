@@ -11,5 +11,7 @@ namespace WindowsFormsApplication1
     public interface CardReadViewee : Viewee
     {
         void OnCardInformationRead(CardInformation card);
+
+        void OnCardnotRead(CardInformation card);
     }
 }

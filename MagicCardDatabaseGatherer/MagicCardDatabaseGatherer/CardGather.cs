@@ -24,9 +24,10 @@ namespace WindowsFormsApplication1
 
         public bool ReadCard(int cardNumber)
         {
+            CardInformation card = new CardInformation();
             try
             {
-                CardInformation card = new CardInformation();
+                card = new CardInformation();
                 string page = "";
                 //using (WebClient client = new WebClient())
                 //{
@@ -69,6 +70,8 @@ namespace WindowsFormsApplication1
                             manaCost = manaCost.Substring(manaCost.RightIndexOf("name="));
                             card.ManaCost += manaCost.First();
                         }
+                        if(String.IsNullOrEmpty(card.ManaCost))
+                            card.ManaCost = "0";
                         card.ManaCost.Trim();
                     }
 
@@ -78,7 +81,7 @@ namespace WindowsFormsApplication1
                         string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_cmcRow"));
                         string cmc = cardTable.Substring(cardTable.RightIndexOf("value\">"));
                         cmc = cmc.Substring(0, cmc.IndexOf("<")).Trim();
-                        card.ConvertedManaCost = Int32.Parse(String.IsNullOrEmpty(cmc) ? "0" : cmc);
+                        card.ConvertedManaCost = String.IsNullOrEmpty(cmc) ? "0" : cmc;
                     }
 
                     //  Gets Card Types
@@ -86,7 +89,7 @@ namespace WindowsFormsApplication1
                     {
                         string cardTable = mainCardTable.Substring(mainCardTable.RightIndexOf("ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_typeRow"));
                         cardTable = cardTable.Substring(cardTable.RightIndexOf("value\">"));
-                        string[] types = cardTable.Substring(0, cardTable.IndexOf("<")).Split(new string[] { "â€”" }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] types = cardTable.Substring(0, cardTable.IndexOf("<")).Split(new string[] { "—" }, StringSplitOptions.RemoveEmptyEntries);
                         card.Type = types[0].Trim();
                         if (types.Length > 1 && !String.IsNullOrEmpty(types[1].Trim()))
                         {
@@ -108,16 +111,23 @@ namespace WindowsFormsApplication1
 
                         for (int i = 0; i < ruleTextCount; i++)
                         {
+                            //Level up stuff
                             ruleTexts = ruleTexts.Substring(ruleTexts.RightIndexOf("cardtextbox\">"));
                             string ruleText = ruleTexts.Substring(0, ruleTexts.IndexOf("</div>"));
                             ruleText = Regex.Replace(ruleText, @"<img([^\]]+?)name=([^\]]+?)&amp;.*?>", @"$2");
 
                             if (IsAbility(ruleText))
                             {
-                                string[] abilities = ruleText.Split(',');
+                                string[] abilities = ruleText.Split(' ');
+                                string fullAbility = "";
                                 for (int j = 0; j < abilities.Length; j++)
                                 {
-                                    card.Abilities += abilities[j].Trim() + '|';
+                                    fullAbility += abilities[j].Trim() + ' ';
+                                    if ((keywords.Contains(fullAbility) && j > 0) || j == abilities.Length - 1)
+                                    {
+                                        card.Abilities += fullAbility +'|';
+                                        fullAbility = "";
+                                    }
                                 }
                             }
                             else
@@ -190,6 +200,10 @@ namespace WindowsFormsApplication1
                         cardTable = cardTable.Substring(cardTable.RightIndexOf("artist=[%22"));
                         card.Artist = cardTable.Substring(0, cardTable.IndexOf("%22]"));
                     }
+                    else
+                    {
+                        card.Artist = "(none)";
+                    }
 
                     _viewee.OnCardInformationRead(card);
                 }
@@ -198,6 +212,7 @@ namespace WindowsFormsApplication1
             }
             catch (Exception ex)
             {
+                _viewee.OnCardnotRead(card);
                 _viewee.OnException(ex);
                 return false;
             }
@@ -217,6 +232,7 @@ namespace WindowsFormsApplication1
             {
                 maybeAbility = maybeAbility.Substring(0, Math.Min(commaIndex, parenthesisIndex));
                 maybeAbility = Regex.Replace(maybeAbility, "<.*>", "");
+                maybeAbility = Regex.Replace(maybeAbility, "\\(*[0-9]\\)*", "");
             }
 
             return keywords.Contains(maybeAbility.Trim());

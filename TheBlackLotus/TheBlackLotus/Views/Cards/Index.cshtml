@@ -35,13 +35,20 @@
                     {
                     <tr>
                         <td nowrap class="attribute">Abilities</td>
-                        <td class="value"> @Html.Raw(card.Abilities.AbilitiesText)</td>
+                        <td class="value">@Html.Raw(card.Abilities.AbilitiesText)</td>
                     </tr>
                     }
                     <tr>
                         <td nowrap class="attribute">Card Text</td>
-                        <td class="value">@card.RuleText</td>
+                        <td class="value">@Html.Raw(card.RuleText)</td>
                     </tr>
+                    @if(!String.IsNullOrEmpty(card.FlavorText))
+                    {
+                        <tr>
+                            <td nowrap class="attribute">Flavor Text</td>
+                            <td class="value">@Html.Raw(card.FlavorText)</td>
+                        </tr>
+                    }
                     @if (card.Power != null && card.Toughness != null)
                     {
                         <tr>

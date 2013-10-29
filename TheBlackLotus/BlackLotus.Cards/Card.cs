@@ -14,10 +14,10 @@ namespace BlackLotus.Cards
         public int CardId { get; set; }
         [DatabaseColumn]
         public string Name { get; set; }
-        [DatabaseColumn]
+        [DatabaseColumn(true)]
         public string ManaCost { get; set; }
-        [DatabaseColumn]
-        public int ConvertedManaCost { get; set; }
+        [DatabaseColumn(true)]
+        public string ConvertedManaCost { get; set; }
         [DatabaseColumn]
         public int TypeId { get; set; }
         [DatabaseColumn]

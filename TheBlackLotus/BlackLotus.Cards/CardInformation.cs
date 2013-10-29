@@ -14,10 +14,10 @@ namespace BlackLotus.Cards
         public int CardId { get; set; }
         [DatabaseColumn]
         public string Name { get; set; }
-        [DatabaseColumn]
+        [DatabaseColumn(true)]
         public string ManaCost { get; set; }
-        [DatabaseColumn]
-        public int ConvertedManaCost { get; set; }
+        [DatabaseColumn(true)]
+        public string ConvertedManaCost { get; set; }
         [DatabaseColumn]
         public int TypeId { get; set; }
         [DatabaseColumn]
@@ -151,11 +151,15 @@ namespace BlackLotus.Cards
                         AbilityText = ab
                     };
                     BlackLotusDb<Ability>.Instance.Save(ability);
-                    CardAbility cardAbilities = new CardAbility() { AbilityId = ability.AbilityId, CardId = this.CardId };
-                    BlackLotusDb<CardAbility>.Instance.Save(cardAbilities);
+
+                    CardAbility cardAbilities = CardAbility.Select().Where("CardId", this.CardId).And("AbilityId", ability.AbilityId).FirstOrDefault();
+                    if (cardAbilities == null)
+                    {
+                        cardAbilities = new CardAbility() { AbilityId = ability.AbilityId, CardId = this.CardId };
+                        BlackLotusDb<CardAbility>.Instance.Save(cardAbilities);
+                    }
                 }
             }
-
         }
 
 
